@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test API</title>
+  <style>
+    body {
+      background: transparent;
+      margin: 0;
+      padding-left: 10px;
+      display: flex;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+  </style>
+</head>
+
+
+<body>
+  <div>
+    <p>Total Case : <span id="total"></span></p>
+    <p>Total Death : <span id="death"></span></p>
+    <p>Total Recovery : <span id="recovered"></span></p>
+  </div>
+</body>
+
+<script>
+  fetch('https://api.covid19api.com/summary')
+    .then(response => response.json())
+    .then(data => {
+      const globalData = data.Global;
+      const totalCases = globalData.TotalConfirmed;
+      const totalDeaths = globalData.TotalDeaths;
+      const totalRecovered = globalData.TotalRecovered;
+      console.log(globalData)
+
+      document.querySelector('#total').innerHTML = totalCases
+      document.querySelector('#death').innerHTML = totalDeaths
+      document.querySelector('#recovered').innerHTML = totalRecovered
+    })
+    .catch(error => console.error(error));
+</script>
+
+</html>
